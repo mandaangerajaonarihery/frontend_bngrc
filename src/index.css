@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+:root {
+  /* Premium Color Palette */
+  --primary-hue: 220;
+  --primary-sat: 90%;
+  --primary-light: 55%;
+  --primary-dark: 20%;
+
+  --accent-hue: 25;
+  /* Amber/Orange for BNGRC vibe but modern */
+  --accent-sat: 95%;
+  --accent-light: 55%;
+
+  --color-primary: hsl(var(--primary-hue), var(--primary-sat), var(--primary-dark));
+  --color-primary-light: hsl(var(--primary-hue), var(--primary-sat), var(--primary-light));
+  --color-accent: hsl(var(--accent-hue), var(--accent-sat), var(--accent-light));
+
+  --color-bg: hsl(210, 20%, 98%);
+  --color-surface: hsl(0, 0%, 100%);
+  --color-surface-translucent: hsla(0, 0%, 100%, 0.7);
+
+  --color-text-main: hsl(220, 40%, 10%);
+  --color-text-secondary: hsl(220, 20%, 40%);
+  --color-text-muted: hsl(220, 15%, 60%);
+
+  /* Shadows & Glass */
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 24px -6px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 48px -12px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 24px 64px -16px rgba(0, 0, 0, 0.15);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+  --glass-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Animation Durations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(at 0% 0%, hsla(220, 40%, 90%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(var(--accent-hue), 40%, 95%, 1) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--color-text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Utilities */
+.glass-panel {
+  background: var(--color-surface-translucent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: 16px;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card Utilities */
+.card-hover {
+  transition: all var(--duration-normal) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Button Utilities */
+.btn-primary {
+  background: linear-gradient(135deg, hsl(220, 90%, 55%), hsl(220, 90%, 45%));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all var(--duration-normal);
+  box-shadow: 0 4px 12px -2px hsla(220, 90%, 55%, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px hsla(220, 90%, 55%, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Animation Utilities */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--duration-normal) ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn var(--duration-normal) ease-out;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(220, 20%, 95%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, hsl(220, 90%, 55%), hsl(220, 90%, 45%));
+  border-radius: 10px;
+  border: 2px solid hsl(220, 20%, 95%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, hsl(220, 90%, 50%), hsl(220, 90%, 40%));
+}
+
+/* Focus Styles for Accessibility */
+*:focus-visible {
+  outline: 2px solid hsl(220, 90%, 55%);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Selection Styles */
+::selection {
+  background-color: hsla(220, 90%, 55%, 0.3);
+  color: var(--color-text-main);
+}
