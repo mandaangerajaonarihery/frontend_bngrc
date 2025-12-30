@@ -3,7 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { getRubriqueWithDetails } from '../services/api';
 import type { Rubrique } from '../types';
 import { TypeRubriqueCard } from '../components/TypeRubriqueCard';
-import { ChevronRight, ArrowLeft, Search, Sparkles, Layers } from 'lucide-react';
+import { InputWithIcon } from '../components/InputWithIcon';
+import { ChevronRight, ArrowLeft, Search, Layers } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const RubriqueDetails = () => {
@@ -71,109 +72,90 @@ export const RubriqueDetails = () => {
     );
 
     return (
-        <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
-            <div className="max-w-7xl mx-auto space-y-8">
-                {/* Breadcrumb & Back Button */}
-                <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="space-y-4"
-                >
-                    {/* Breadcrumb */}
-                    <div className="flex items-center gap-2 text-sm text-slate-500">
-                        <Link to="/" className="hover:text-blue-600 transition-colors font-medium">
-                            Tableau de bord
-                        </Link>
-                        <ChevronRight size={14} className="text-slate-400" />
-                        <span className="text-slate-800 font-semibold truncate max-w-xs sm:max-w-md">
-                            {rubrique.libelle}
-                        </span>
-                    </div>
+        <div className="min-h-screen flex flex-col">
+            {/* Hero Header Section - Full Width */}
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 w-full min-h-[30vh] flex flex-col justify-center items-center p-8 shadow-2xl"
+            >
+                {/* Decorative elements */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -mr-48 -mt-48" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -ml-32 -mb-32" />
 
-                    {/* Back Button */}
+                {/* Breadcrumb - Absolute top left */}
+                <div className="absolute top-8 left-8 z-20 text-white">
                     <Link
                         to="/"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-white rounded-xl border border-slate-200 text-slate-700 text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900 transition-all duration-200 shadow-sm hover:shadow-md"
+                        className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl text-sm font-semibold hover:bg-white/20 transition-all duration-200 border border-white/10"
+                        style={{ paddingLeft: '12px', paddingRight: '12px', paddingTop: '6px', paddingBottom: '6px' }}
                     >
                         <ArrowLeft size={16} strokeWidth={2.5} />
                         <span>Retour</span>
                     </Link>
-                </motion.div>
+                </div>
 
-                {/* Hero Header Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-blue-800 rounded-3xl p-8 md:p-12 shadow-2xl"
-                >
-                    {/* Decorative elements */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl -mr-32 -mt-32" />
-                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl -ml-24 -mb-24" />
+                <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center gap-14">
+                    <div className="flex flex-col items-center">
+                        <motion.h1
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-tight tracking-tight text-center mb-8"
+                        >
+                            {rubrique.libelle}
+                        </motion.h1>
 
-                    <div className="relative z-10">
-                        <div className="flex items-center gap-3 mb-4">
-                            <motion.div
-                                animate={{ rotate: [0, 10, -10, 0] }}
-                                transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                            >
-                                <Sparkles className="text-blue-300" size={32} strokeWidth={2.5} />
-                            </motion.div>
-                            <h1 className="text-3xl md:text-4xl font-black text-white leading-tight">
-                                {rubrique.libelle}
-                            </h1>
-                        </div>
-
-                        <p className="text-blue-100 text-base md:text-lg mb-8 max-w-3xl leading-relaxed">
+                        <motion.p
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto font-medium text-center"
+                        >
                             {rubrique.description}
-                        </p>
-
-                        {/* Search Bar */}
-                        <div className="max-w-xl">
-                            <div className="relative">
-                                <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                <input
-                                    type="text"
-                                    placeholder="Rechercher une catégorie..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full pl-12 pr-4 py-3.5 bg-white/95 backdrop-blur-sm border border-white/20 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all shadow-lg"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Stats */}
-                        <div className="flex gap-6 mt-8">
-                            <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-blue-400 rounded-full" />
-                                <span className="text-white/90 text-sm font-semibold">
-                                    {types.length} {types.length > 1 ? 'catégories' : 'catégorie'}
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-purple-400 rounded-full" />
-                                <span className="text-white/90 text-sm font-semibold">
-                                    {types.reduce((acc, type) => acc + (type.fichiers?.length || 0), 0)} documents
-                                </span>
-                            </div>
-                        </div>
+                        </motion.p>
                     </div>
-                </motion.div>
 
-                {/* Type Rubriques Grid */}
-                <div>
-                    <motion.h2
+                    {/* Search Bar - Using InputWithIcon Component */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="w-full max-w-2xl mx-auto flex justify-center"
+                    >
+                        <InputWithIcon
+                            icon={Search}
+                            iconPosition="left"
+                            placeholder="Rechercher une catégorie..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </motion.div>
+                </div>
+            </motion.div>
+
+            {/* Type Rubriques Grid - Centered Container */}
+            <div className="flex-1 w-full bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <motion.h3
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                        className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2"
+                        transition={{ delay: 0.5 }}
+                        className="text-lg md:text-xl mb-4 flex items-center"
+                        style={{ marginLeft: '40px', marginTop: '20px' }}
                     >
-                        <div className="w-1 h-6 bg-gradient-to-b from-blue-600 to-blue-400 rounded-full" />
-                        {searchQuery ? `Résultats de recherche (${filteredTypes.length})` : 'Toutes les catégories'}
-                    </motion.h2>
+                        <Link to="/" className="font-medium text-slate-500 hover:text-blue-600 transition-colors">
+                            Liste des Rubriques
+                        </Link>
+                        <ChevronRight size={20} className="mx-2 text-slate-400" />
+                        <span className="font-bold text-slate-900">
+                            {searchQuery ? `Résultats de recherche (${filteredTypes.length})` : 'Catégories disponibles'}
+                        </span>
+                    </motion.h3>
 
                     {filteredTypes.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" style={{ marginLeft: '40px', marginRight: '40px', marginTop: '20px', marginBottom: '20px' }}>
                             {filteredTypes.map((type, index) => (
                                 <TypeRubriqueCard
                                     key={type.idTypeRubrique}
@@ -185,9 +167,9 @@ export const RubriqueDetails = () => {
                         </div>
                     ) : (
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200 shadow-sm"
+                            className="w-full text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200 shadow-sm"
                         >
                             <Layers size={64} className="mx-auto text-slate-300 mb-4" strokeWidth={1.5} />
                             <h3 className="text-2xl font-bold text-slate-900 mb-2">
