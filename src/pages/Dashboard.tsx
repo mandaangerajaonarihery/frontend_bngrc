@@ -93,19 +93,18 @@ export const Dashboard = () => {
             </motion.div>
 
             {/* Rubriques Grid - Centered Container */}
-            <div className="flex-1 w-full bg-gray-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <motion.h2
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="text-2xl md:text-3xl font-bold text-slate-900 mb-8"
-                    >
-                        {searchQuery ? `Résultats de recherche (${filteredRubriques.length})` : 'Quickfind answers'}
-                    </motion.h2>
-
+            <div className="flex-1 w-full bg-gray-50" >
+                <motion.h3
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="text-lg md:text-xl font-bold text-slate-900 mb-4 " style={{ marginLeft: '40px', marginTop: '20px' }}
+                >
+                    {searchQuery ? `Résultats de recherche (${filteredRubriques.length})` : 'Liste des Rubriques'}
+                </motion.h3>
+                <div className="px-4 sm:px-6 lg:px-8 py-12" style={{ marginLeft: '40px', marginRight: '40px', marginTop: '20px', marginBottom: '20px' }}>
                     {filteredRubriques.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
                             {filteredRubriques.map((rubrique, index) => (
                                 <RubriqueCard key={rubrique.idRubrique} rubrique={rubrique} index={index} />
                             ))}
@@ -114,7 +113,7 @@ export const Dashboard = () => {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200 shadow-sm"
+                            className="w-full text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200 shadow-sm"
                         >
                             <FolderOpen size={64} className="mx-auto text-slate-300 mb-4" strokeWidth={1.5} />
                             <h3 className="text-2xl font-bold text-slate-900 mb-2">
