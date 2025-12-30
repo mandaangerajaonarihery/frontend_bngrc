@@ -15,6 +15,7 @@ export interface TypeRubrique {
     fichiers?: Fichier[];
     dateCreation?: string;
     dateModification?: string;
+    icon?: string; // For dynamic icon selection
 }
 
 export interface Rubrique {

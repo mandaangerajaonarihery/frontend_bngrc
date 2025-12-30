@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Dashboard } from './pages/Dashboard';
 import { RubriqueDetails } from './pages/RubriqueDetails';
+import { TypeRubriqueDetails } from './pages/TypeRubriqueDetails';
 import { AdminLayout } from './pages/admin/AdminLayout';
 import { RubriqueManager } from './pages/admin/RubriqueManager';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="rubriques" element={<Navigate to="/" replace />} />
           <Route path="rubriques/:id" element={<RubriqueDetails />} />
+          <Route path="rubriques/:rubriqueId/types/:typeId" element={<TypeRubriqueDetails />} />
           {/* Fallback route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
