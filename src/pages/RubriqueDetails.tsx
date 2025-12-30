@@ -4,7 +4,7 @@ import { getRubriqueWithDetails } from '../services/api';
 import type { Rubrique } from '../types';
 import { TypeRubriqueCard } from '../components/TypeRubriqueCard';
 import { InputWithIcon } from '../components/InputWithIcon';
-import { ChevronRight, ArrowLeft, Search, Layers } from 'lucide-react';
+import { ChevronRight, ArrowLeft, Search, Layers, Archive } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const RubriqueDetails = () => {
@@ -98,14 +98,17 @@ export const RubriqueDetails = () => {
 
                 <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center gap-14">
                     <div className="flex flex-col items-center">
-                        <motion.h1
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-tight tracking-tight text-center mb-8"
-                        >
-                            {rubrique.libelle}
-                        </motion.h1>
+                        <div className="flex items-center gap-3 mb-4">
+                            <motion.div
+                                animate={{ rotate: [0, 10, -10, 0] }}
+                                transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+                            >
+                                <Archive className="text-blue-300" size={32} strokeWidth={2.5} />
+                            </motion.div>
+                            <h1 className="text-3xl md:text-4xl font-black text-white leading-tight">
+                                {rubrique.libelle}
+                            </h1>
+                        </div>
 
                         <motion.p
                             initial={{ opacity: 0, y: 10 }}
