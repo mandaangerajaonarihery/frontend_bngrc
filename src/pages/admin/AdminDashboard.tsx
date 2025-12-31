@@ -24,8 +24,8 @@ export const AdminDashboard = () => {
     ];
 
     return (
-        <div className="space-y-8">
-            <h1 className="text-3xl font-black text-slate-900">Tableau de bord</h1>
+        <div style={{ padding: '20px' }}>
+            <h1 className="text-3xl font-black text-slate-900" style={{ padding: '20px 0 20px 0' }}>Tableau de bord</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {stats.map((stat, idx) => (
@@ -35,9 +35,10 @@ export const AdminDashboard = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.1 }}
                         className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200"
+                        style={{ padding: '20px' }}
                     >
                         <div className="flex items-center gap-4">
-                            <div className={`p-4 rounded-2xl ${stat.bg} ${stat.color}`}>
+                            <div className={`p-4 rounded-2xl  ${stat.color}`}>
                                 <stat.icon size={24} />
                             </div>
                             <div>
@@ -49,10 +50,10 @@ export const AdminDashboard = () => {
                 ))}
             </div>
 
-            <div className="mt-8">
-                <div className="flex items-center justify-between mb-6">
+            <div >
+                <div className="flex items-center justify-between" style={{ margin: '20px' }}>
                     <h2 className="text-xl font-bold text-slate-800">Activités récentes</h2>
-                    <Link to="/admin/rubriques" className="text-blue-600 font-semibold hover:underline">Gérer les rubriques</Link>
+                    <Link to="/admin/rubriques" className="font-semibold hover:underline bg-blue-600 hover:bg-blue-600/50 transition-all duration-200 px-4 py-2 rounded-2xl" style={{ padding: '10px 20px 10px 20px', color: 'white' }}>Gérer les rubriques</Link>
                 </div>
                 {/* Placeholders for recent activity */}
                 <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 text-center text-slate-500">
