@@ -196,35 +196,38 @@ export const RubriqueManager = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white rounded-3xl shadow-2xl z-50 p-8 border border-slate-200"
+                            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white rounded-3xl shadow-2xl z-50 border border-slate-200"
+                            style={{ padding: '32px' }}
                         >
-                            <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center justify-between " style={{ marginBottom: '20px' }}>
                                 <h2 className="text-2xl font-bold text-slate-900">
                                     {editingRubrique ? 'Modifier la rubrique' : 'Nouvelle rubrique'}
                                 </h2>
-                                <button onClick={closeModal} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                                <button onClick={closeModal} className="hover:bg-slate-100 rounded-full transition-colors" style={{padding: '8px'}}>
                                     <X size={20} className="text-slate-500" />
                                 </button>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-4">
+                            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                                 <div>
-                                    <label className="block text-sm font-bold text-slate-700 mb-1">Libellé</label>
+                                    <label className="block text-sm font-bold text-slate-700" style={{ marginBottom: '8px' }}>Libellé</label>
                                     <input
                                         type="text"
                                         value={libelle}
                                         onChange={(e) => setLibelle(e.target.value)}
-                                        className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                        className="w-full rounded-xl border border-slate-300 focus:border-none outline-none transition-all"
+                                        style={{ padding: '16px 10px' }}
                                         placeholder="Ex: Ressources Humaines"
                                         autoFocus
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-slate-700 mb-1">Description</label>
+                                    <label className="block text-sm font-bold text-slate-700" style={{ marginBottom: '8px' }}>Description</label>
                                     <textarea
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
-                                        className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all h-32 resize-none"
+                                        className="w-full  rounded-xl border border-slate-300 focus:border-none outline-none transition-all h-32 resize-none"
+                                        style={{ padding: '16px 10px' }}
                                         placeholder="Description courte..."
                                     />
                                 </div>
@@ -233,14 +236,16 @@ export const RubriqueManager = () => {
                                     <button
                                         type="button"
                                         onClick={closeModal}
-                                        className="flex-1 px-4 py-2.5 bg-slate-100 text-slate-700 font-semibold rounded-xl hover:bg-slate-200 transition-colors"
+                                        className="flex-1  text-slate-700 font-semibold rounded-xl hover:bg-slate-200 transition-colors"
+                                        style={{ padding: '16px 10px',backgroundColor: '#f5f5f5' }}
                                     >
                                         Annuler
                                     </button>
                                     <button
                                         type="submit"
                                         disabled={loading || !libelle}
-                                        className="flex-1 px-4 py-2.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all disabled:opacity-50 shadow-lg shadow-blue-600/20"
+                                        className="flex-1 text-white font-bold rounded-xl hover:bg-blue-700 transition-all disabled:opacity-50 shadow-lg shadow-blue-600/20"
+                                        style={{ padding: '16px 10px',backgroundColor: '#50c900ff' }}
                                     >
                                         {loading ? 'Enregistrement...' : 'Enregistrer'}
                                     </button>
