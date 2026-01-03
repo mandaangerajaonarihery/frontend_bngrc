@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getRubriques, createRubrique, updateRubrique, deleteRubrique } from '../../services/api';
 import type { Rubrique } from '../../types';
-import { Plus, Trash2, Edit, X, FolderOpen } from 'lucide-react';
+import { Plus, Trash2, Edit, X, Folder } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -116,54 +116,55 @@ export const RubriqueManager = () => {
     };
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between">
+        <div className="space-y-6" style={{ padding: '20px' }}>
+            <div className="flex items-center justify-between" style={{ padding: '20px 0 20px 0' }}>
                 <h1 className="text-3xl font-black text-slate-900">Gestion des Rubriques</h1>
                 <button
                     onClick={() => openModal()}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl font-semibold shadow-lg shadow-blue-600/30 hover:bg-blue-700 transition-all hover:scale-105 active:scale-95"
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 cursor-pointer transition-all shadow-lg shadow-blue-600/20"
+                    style={{ padding: '10px 20px', color: 'white', backgroundColor: '#2563eb' }}
                 >
                     <Plus size={20} />
                     Nouvelle Rubrique
                 </button>
             </div>
 
-            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-3xl overflow-hidden" style={{ padding: '20px 30px 20px 30px' }}>
                 <table className="w-full text-left">
-                    <thead className="bg-slate-50 border-b border-slate-200">
+                    <thead className="bg-slate-50 border-b border-slate-200 text-xl font-bold">
                         <tr>
-                            <th className="px-6 py-4 font-semibold text-slate-700">Libellé</th>
-                            <th className="px-6 py-4 font-semibold text-slate-700">Description</th>
-                            <th className="px-6 py-4 font-semibold text-slate-700 w-48">Actions</th>
+                            <th className="font-semibold text-slate-700" style={{ padding: '10px 20px' }}>Libellé</th>
+                            <th className="font-semibold text-slate-700" style={{ padding: '10px 20px' }}>Description</th>
+                            <th className="font-semibold text-slate-700 w-48" style={{ padding: '10px 20px' }}>Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-slate-100 text-lg">
                         {rubriques.map((rubrique) => (
                             <tr key={rubrique.idRubrique} className="hover:bg-slate-50/50 transition-colors">
-                                <td className="px-6 py-4 font-medium text-slate-900">{rubrique.libelle}</td>
-                                <td className="px-6 py-4 text-slate-500 max-w-md truncate">{rubrique.description}</td>
-                                <td className="px-6 py-4">
+                                <td className="font-medium text-slate-900" style={{ padding: '10px 20px' }}>{rubrique.libelle}</td>
+                                <td className="text-slate-500 max-w-md truncate" style={{ padding: '10px 20px' }}>{rubrique.description}</td>
+                                <td className="" style={{ padding: '10px 20px' }}>
                                     <div className="flex items-center gap-2">
                                         <button
                                             onClick={() => openModal(rubrique)}
                                             className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                                             title="Modifier"
                                         >
-                                            <Edit size={18} />
+                                            <Edit size={25} />
                                         </button>
                                         <Link
                                             to={`/admin/rubriques/${rubrique.idRubrique}`}
                                             className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
                                             title="Gérer les fichiers"
                                         >
-                                            <FolderOpen size={18} />
+                                            <Folder size={25} />
                                         </Link>
                                         <button
                                             onClick={() => handleDelete(rubrique.idRubrique)}
                                             className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                             title="Supprimer"
                                         >
-                                            <Trash2 size={18} />
+                                            <Trash2 size={25} />
                                         </button>
                                     </div>
                                 </td>

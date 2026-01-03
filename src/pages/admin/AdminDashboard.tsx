@@ -53,7 +53,7 @@ export const AdminDashboard = () => {
             <div >
                 <div className="flex items-center justify-between" style={{ margin: '20px' }}>
                     <h2 className="text-xl font-bold text-slate-800">Activités récentes</h2>
-                    <Link to="/admin/rubriques" className="font-semibold hover:underline bg-blue-600 hover:bg-blue-600/50 transition-all duration-200 px-4 py-2 rounded-2xl" style={{ padding: '10px 20px 10px 20px', color: 'white' }}>Gérer les rubriques</Link>
+                    <Link to="/admin/rubriques" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 cursor-pointer transition-all shadow-lg shadow-blue-600/20" style={{ padding: '10px 20px 10px 20px', color: 'white' }}>Gérer les rubriques</Link>
                 </div>
                 {/* Placeholders for recent activity */}
                 <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 text-center text-slate-500">
