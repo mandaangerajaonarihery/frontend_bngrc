@@ -106,13 +106,14 @@ export const RubriqueDetailManager = () => {
 
     const handleDeleteType = async (typeId: string) => {
         toast.custom((t) => (
-            <div className="bg-white p-6 rounded-2xl shadow-xl border border-slate-200 w-full max-w-sm">
-                <h3 className="font-bold text-slate-800 mb-2">Supprimer la catégorie ?</h3>
-                <p className="text-sm text-slate-500 mb-4">Cela supprimera également tous les fichiers associés.</p>
-                <div className="flex justify-end gap-2">
+            <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-sm" style={{ padding: '24px' }}>
+                <h3 className="font-bold text-slate-800 " style={{ marginBottom: '16px' }}>Supprimer la catégorie ?</h3>
+                <p className="text-sm text-slate-500" style={{ marginBottom: '16px' }}>Cela supprimera également tous les fichiers associés.</p>
+                <div className="flex justify-end gap-2" style={{ marginTop: '16px' }}>
                     <button
                         onClick={() => toast.dismiss(t)}
                         className="px-3 py-1.5 text-slate-600 hover:bg-slate-100 rounded-lg text-sm font-medium"
+                        style={{ padding: '8px 12px',backgroundColor: '#f5f5f5' }}
                     >
                         Annuler
                     </button>
@@ -130,6 +131,7 @@ export const RubriqueDetailManager = () => {
                             });
                         }}
                         className="px-3 py-1.5 bg-red-600 text-white hover:bg-red-700 rounded-lg text-sm font-medium"
+                        style={{ padding: '8px 12px',backgroundColor: '#dc2626' }}
                     >
                         Supprimer
                     </button>
@@ -168,10 +170,10 @@ export const RubriqueDetailManager = () => {
 
     const handleDeleteFile = async (fileId: string) => {
         toast.custom((t) => (
-            <div className="bg-white p-6 rounded-2xl shadow-xl border border-slate-200 w-full max-w-sm">
+            <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-sm" style={{ padding: '24px' }}>
                 <h3 className="font-bold text-slate-800 mb-2">Supprimer le fichier ?</h3>
-                <div className="flex justify-end gap-2 mt-4">
-                    <button onClick={() => toast.dismiss(t)} className="px-3 py-1.5 text-slate-600 hover:bg-slate-100 rounded-lg text-sm font-medium">Annuler</button>
+                <div className="flex justify-end gap-2" style={{ marginTop: '16px' }}>
+                    <button onClick={() => toast.dismiss(t)} className=" text-slate-600 hover:bg-slate-100 rounded-lg text-sm font-medium" style={{ padding: '8px 12px',backgroundColor: '#f5f5f5' }}>Annuler</button>
                     <button
                         onClick={async () => {
                             toast.dismiss(t);
@@ -179,7 +181,7 @@ export const RubriqueDetailManager = () => {
                             fetchDetails();
                             toast.success('Fichier supprimé');
                         }}
-                        className="px-3 py-1.5 bg-red-600 text-white hover:bg-red-700 rounded-lg text-sm font-medium"
+                        className=" bg-red-600 text-white hover:bg-red-700 rounded-lg text-sm font-medium" style={{ padding: '8px 12px',backgroundColor: '#dc2626' }}
                     >
                         Supprimer
                     </button>
