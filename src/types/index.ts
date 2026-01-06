@@ -26,3 +26,6 @@ export interface Rubrique {
     // Frontend only fields (mapped manually)
     icon?: string;
 }
+
+// Export authentication types
+export * from './authTypes';

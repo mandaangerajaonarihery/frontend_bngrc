@@ -70,7 +70,7 @@ export const RubriqueManager = () => {
 
         try {
             await promise;
-        } catch (error) {
+        } catch {
             // Error handled by toast
         } finally {
             setLoading(false);
@@ -203,7 +203,7 @@ export const RubriqueManager = () => {
                                 <h2 className="text-2xl font-bold text-slate-900">
                                     {editingRubrique ? 'Modifier la rubrique' : 'Nouvelle rubrique'}
                                 </h2>
-                                <button onClick={closeModal} className="hover:bg-slate-100 rounded-full transition-colors" style={{padding: '8px'}}>
+                                <button onClick={closeModal} className="hover:bg-slate-100 rounded-full transition-colors" style={{ padding: '8px' }}>
                                     <X size={20} className="text-slate-500" />
                                 </button>
                             </div>
@@ -237,7 +237,7 @@ export const RubriqueManager = () => {
                                         type="button"
                                         onClick={closeModal}
                                         className="flex-1  text-slate-700 font-semibold rounded-xl hover:bg-slate-200 transition-colors"
-                                        style={{ padding: '16px 10px',backgroundColor: '#f5f5f5' }}
+                                        style={{ padding: '16px 10px', backgroundColor: '#f5f5f5' }}
                                     >
                                         Annuler
                                     </button>
@@ -245,7 +245,7 @@ export const RubriqueManager = () => {
                                         type="submit"
                                         disabled={loading || !libelle}
                                         className="flex-1 text-white font-bold rounded-xl hover:bg-blue-700 transition-all disabled:opacity-50 shadow-lg shadow-blue-600/20"
-                                        style={{ padding: '16px 10px',backgroundColor: '#50c900ff' }}
+                                        style={{ padding: '16px 10px', backgroundColor: '#50c900ff' }}
                                     >
                                         {loading ? 'Enregistrement...' : 'Enregistrer'}
                                     </button>

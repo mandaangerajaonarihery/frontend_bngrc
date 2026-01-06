@@ -1,14 +1,59 @@
 import axios from 'axios';
 import type { Rubrique, TypeRubrique, Fichier } from '../types';
+import { getAccessToken, refreshToken, clearTokens } from './authService';
 
 const API_URL = 'http://localhost:3001/serviceterritoriale';
 
-const api = axios.create({
+export const api = axios.create({
     baseURL: API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
 });
+
+// Request interceptor to add JWT token to all requests
+api.interceptors.request.use(
+    (config) => {
+        const token = getAccessToken();
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+// Response interceptor to handle 401 errors and refresh token
+api.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        const originalRequest = error.config;
+
+        // If error is 401 and we haven't tried to refresh yet
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+
+            try {
+                // Try to refresh the token
+                const newToken = await refreshToken();
+
+                // Retry the original request with new token
+                originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                return api(originalRequest);
+            } catch (refreshError) {
+                // If refresh fails, clear tokens and redirect to login
+                clearTokens();
+                window.location.href = '/login';
+                return Promise.reject(refreshError);
+            }
+        }
+
+        return Promise.reject(error);
+    }
+);
+
 
 // Rubriques
 export const getRubriques = async (): Promise<Rubrique[]> => {
@@ -57,7 +102,7 @@ export const getTypeRubriques = async (idRubrique: string): Promise<TypeRubrique
     return response.data.data;
 };
 
-export const createTypeRubrique = async (data: any): Promise<TypeRubrique> => {
+export const createTypeRubrique = async (data: Record<string, unknown>): Promise<TypeRubrique> => {
     const response = await api.post('/type-rubrique', data);
     return response.data.typeRubrique;
 };

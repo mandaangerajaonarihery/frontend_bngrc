@@ -31,7 +31,7 @@ export const Dashboard = () => {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center h-full min-h-[50vh]">
                 <div className="relative">
                     <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
                     <div className="absolute inset-0 w-12 h-12 border-4 border-transparent border-b-blue-400 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1s' }} />
@@ -41,7 +41,7 @@ export const Dashboard = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="flex flex-col w-full">
             {/* Hero Header Section - Full Width */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}

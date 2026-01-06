@@ -11,7 +11,7 @@ interface TypeRubriqueCardProps {
 
 export const TypeRubriqueCard = ({ typeRubrique, rubriqueId, index }: TypeRubriqueCardProps) => {
     // Dynamic Icon - Default to Folder for Types
-    const IconComponent = (Icons as any)[typeRubrique.icon || 'Folder'] || Icons.Folder;
+    const IconComponent = (Icons as unknown as Record<string, React.ElementType>)[typeRubrique.icon || 'Folder'] || Icons.Folder;
 
     // Calculate total number of documents
     const totalDocuments = typeRubrique.fichiers?.length || 0;

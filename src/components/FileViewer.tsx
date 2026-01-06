@@ -33,22 +33,25 @@ export const FileViewer = ({ file, isOpen, onClose }: FileViewerProps) => {
 
     useEffect(() => {
         if (isOpen && file) {
-            setLoading(true);
-            setError(false);
-            setObjectUrl(null);
-            setDocContent(null);
-            setExcelContent(null);
 
             // Fetch file content as Blob
             getFileContent(file.idFichier)
                 .then(async (blob) => {
-                    if (isImage || isPdf || isAudio || isVideo) {
+                    const extension = file.nomFichier.split('.').pop()?.toLowerCase() || '';
+                    const currentIsImage = ['jpg', 'jpeg', 'png', 'svg', 'webp', 'gif'].includes(extension);
+                    const currentIsPdf = extension === 'pdf';
+                    const currentIsDocx = ['docx'].includes(extension);
+                    const currentIsExcel = ['xlsx', 'xls', 'csv', 'ods'].includes(extension);
+                    const currentIsAudio = ['mp3', 'wav', 'ogg', 'm4a'].includes(extension);
+                    const currentIsVideo = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv'].includes(extension);
+
+                    if (currentIsImage || currentIsPdf || currentIsAudio || currentIsVideo) {
                         // Ensure the blob has the correct MIME type for playback
                         const typedBlob = new Blob([blob], { type: file.typeFichier });
                         const url = URL.createObjectURL(typedBlob);
                         setObjectUrl(url);
                         setLoading(false);
-                    } else if (isDocx) {
+                    } else if (currentIsDocx) {
                         const arrayBuffer = await blob.arrayBuffer();
                         try {
                             const result = await mammoth.convertToHtml({ arrayBuffer });
@@ -59,7 +62,7 @@ export const FileViewer = ({ file, isOpen, onClose }: FileViewerProps) => {
                             setError(true);
                             setLoading(false);
                         }
-                    } else if (isExcel) {
+                    } else if (currentIsExcel) {
                         const arrayBuffer = await blob.arrayBuffer();
                         try {
                             const workbook = XLSX.read(arrayBuffer, { type: 'array' });
@@ -84,13 +87,16 @@ export const FileViewer = ({ file, isOpen, onClose }: FileViewerProps) => {
                     setLoading(false);
                 });
         }
+    }, [isOpen, file?.idFichier]); // Depend only on ID
 
+    // Separate effect for cleaning up objectUrl
+    useEffect(() => {
         return () => {
             if (objectUrl) {
                 URL.revokeObjectURL(objectUrl);
             }
         };
-    }, [isOpen, file, isImage, isPdf, isDocx, isExcel, isAudio, isVideo]);
+    }, [objectUrl]);
 
     // Prevent scrolling when modal is open
     useEffect(() => {

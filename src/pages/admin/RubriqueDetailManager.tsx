@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getRubriqueWithDetails, createTypeRubrique, updateTypeRubrique, deleteTypeRubrique, uploadFichier, deleteFichier } from '../../services/api';
 import type { Rubrique, TypeRubrique, Fichier } from '../../types';
-import { ArrowLeft, Plus, Trash2, Upload, FileText, X, Layers, Edit, Eye, ChevronRight, Folder } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Upload, FileText, X, Edit, ChevronRight, Folder } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { FileViewer } from '../../components/FileViewer';
@@ -28,7 +28,7 @@ export const RubriqueDetailManager = () => {
 
     const [uploadingState, setUploadingState] = useState<{ [key: string]: boolean }>({});
 
-    const fetchDetails = () => {
+    const fetchDetails = useCallback(() => {
         if (id) {
             getRubriqueWithDetails(id).then(data => {
                 setRubrique(data);
@@ -39,11 +39,11 @@ export const RubriqueDetailManager = () => {
                 setLoading(false);
             });
         }
-    };
+    }, [id]);
 
     useEffect(() => {
         fetchDetails();
-    }, [id]);
+    }, [fetchDetails]);
 
     // Modal Helpers
     const openTypeModal = (type?: TypeRubrique) => {
@@ -113,7 +113,7 @@ export const RubriqueDetailManager = () => {
                     <button
                         onClick={() => toast.dismiss(t)}
                         className="px-3 py-1.5 text-slate-600 hover:bg-slate-100 rounded-lg text-sm font-medium"
-                        style={{ padding: '8px 12px',backgroundColor: '#f5f5f5' }}
+                        style={{ padding: '8px 12px', backgroundColor: '#f5f5f5' }}
                     >
                         Annuler
                     </button>
@@ -131,7 +131,7 @@ export const RubriqueDetailManager = () => {
                             });
                         }}
                         className="px-3 py-1.5 bg-red-600 text-white hover:bg-red-700 rounded-lg text-sm font-medium"
-                        style={{ padding: '8px 12px',backgroundColor: '#dc2626' }}
+                        style={{ padding: '8px 12px', backgroundColor: '#dc2626' }}
                     >
                         Supprimer
                     </button>
@@ -173,7 +173,7 @@ export const RubriqueDetailManager = () => {
             <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-sm" style={{ padding: '24px' }}>
                 <h3 className="font-bold text-slate-800 mb-2">Supprimer le fichier ?</h3>
                 <div className="flex justify-end gap-2" style={{ marginTop: '16px' }}>
-                    <button onClick={() => toast.dismiss(t)} className=" text-slate-600 hover:bg-slate-100 rounded-lg text-sm font-medium" style={{ padding: '8px 12px',backgroundColor: '#f5f5f5' }}>Annuler</button>
+                    <button onClick={() => toast.dismiss(t)} className="         text-slate-600 hover:bg-slate-100 rounded-lg text-sm font-medium" style={{ padding: '8px 12px', backgroundColor: '#f5f5f5' }}>Annuler</button>
                     <button
                         onClick={async () => {
                             toast.dismiss(t);
@@ -181,7 +181,7 @@ export const RubriqueDetailManager = () => {
                             fetchDetails();
                             toast.success('Fichier supprimé');
                         }}
-                        className=" bg-red-600 text-white hover:bg-red-700 rounded-lg text-sm font-medium" style={{ padding: '8px 12px',backgroundColor: '#dc2626' }}
+                        className=" bg-red-600 text-white hover:bg-red-700 rounded-lg text-sm font-medium" style={{ padding: '8px 12px', backgroundColor: '#dc2626' }}
                     >
                         Supprimer
                     </button>
@@ -200,12 +200,12 @@ export const RubriqueDetailManager = () => {
         <div className="space-y-8">
             <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4" style={{ padding: "20px 0" }}>
-                    <Link to="/admin/rubriques" className="p-2 bg-white rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors">
-                        <ArrowLeft size={20} className="text-slate-600" />
+                    <Link to="/admin/rubriques" className=" bg-white rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors" style={{ margin: "8px" }}>
+                        <ArrowLeft size={20} className="text-slate-600" style={{ margin: "8px" }} />
                     </Link>
                     <div>
                         <h1 className="text-3xl font-black text-slate-900">{rubrique.libelle}</h1>
-                        <nav className="flex items-center gap-2 text-sm text-slate-500 mt-1">
+                        <nav className="flex items-center gap-2 text-sm text-slate-500" style={{ marginTop: "4px" }}>
                             <button
                                 onClick={() => setSelectedTypeId(null)}
                                 className={`hover:text-blue-600 transition-colors ${!selectedTypeId ? 'font-bold text-blue-600' : ''}`}
@@ -398,7 +398,7 @@ export const RubriqueDetailManager = () => {
                                         type="button"
                                         onClick={closeTypeModal}
                                         className="flex-1  bg-slate-100 text-slate-700 font-semibold rounded-xl hover:bg-slate-200 transition-colors"
-                                        style={{ padding: '16px 10px',backgroundColor: '#f5f5f5' }}
+                                        style={{ padding: '16px 10px', backgroundColor: '#f5f5f5' }}
                                     >
                                         Annuler
                                     </button>
@@ -406,7 +406,7 @@ export const RubriqueDetailManager = () => {
                                         type="submit"
                                         disabled={isSubmittingType || !typeName}
                                         className="flex-1 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all disabled:opacity-50 shadow-lg shadow-blue-600/20"
-                                        style={{ padding: '16px 10px',backgroundColor: '#50c900ff' }}
+                                        style={{ padding: '16px 10px', backgroundColor: '#50c900ff' }}
                                     >
                                         {isSubmittingType ? 'Enregistrement...' : 'Enregistrer'}
                                     </button>
@@ -419,6 +419,7 @@ export const RubriqueDetailManager = () => {
 
             {/* File Viewer */}
             <FileViewer
+                key={viewingFile ? viewingFile.idFichier : 'viewer'}
                 file={viewingFile}
                 isOpen={isViewerOpen}
                 onClose={closeFileViewer}

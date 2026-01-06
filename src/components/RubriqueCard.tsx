@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export const RubriqueCard = ({ rubrique, index }: { rubrique: Rubrique; index: number }) => {
     // Dynamic Icon
-    const IconComponent = (Icons as any)[rubrique.icon || 'Archive'] || Icons.Archive;
+    const IconComponent = (Icons as unknown as Record<string, React.ElementType>)[rubrique.icon || 'Archive'] || Icons.Archive;
 
     // Calculate total number of documents
     const totalDocuments = rubrique.typeRubriques?.reduce((acc, type) => acc + (type.fichiers?.length || 0), 0) || 0;
