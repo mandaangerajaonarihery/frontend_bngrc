@@ -2,7 +2,7 @@ import axios from 'axios';
 import { api } from './api';
 import type { LoginCredentials, RegisterCredentials, AuthResponse, User } from '../types/authTypes';
 
-const AUTH_API_URL = 'http://localhost:3001/serviceterritoriale/auth';
+const AUTH_API_URL = `${import.meta.env.VITE_API_URL}/auth`;
 const TOKEN_KEY = 'bngrc_access_token';
 const REFRESH_TOKEN_KEY = 'bngrc_refresh_token';
 const USER_ID_KEY = 'bngrc_user_id';
