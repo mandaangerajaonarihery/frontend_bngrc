@@ -162,7 +162,7 @@ export const getCurrentUser = async (): Promise<User> => {
 /**
  * Update user profile
  */
-export const updateUser = async (userId: string, data: Partial<User> & { motDePasse?: string }, avatarFile?: File): Promise<User> => {
+export const updateUser = async (  data: Partial<User> & { motDePasse?: string }, avatarFile?: File): Promise<User> => {
     // Note: userId is ignored as we use the authenticated user's token via /auth/profile endpoint
     const token = getAccessToken();
     if (!token) throw new Error('No access token found');

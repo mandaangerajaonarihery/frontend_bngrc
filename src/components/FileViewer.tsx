@@ -1,7 +1,7 @@
 import { X, Download, FileText, Image as ImageIcon, AlertCircle, FileSpreadsheet } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Fichier } from '../types';
-import { getDownloadUrl, getFileContent } from '../services/api';
+import {  getFileContent } from '../services/api';
 import { useEffect, useState } from 'react';
 import * as mammoth from 'mammoth';
 import * as XLSX from 'xlsx';

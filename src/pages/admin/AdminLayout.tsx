@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Folder, Settings, Bell, LogOut, Search } from 'lucide-react';
+import { LayoutDashboard, Folder, Settings,  LogOut, Search } from 'lucide-react';
 import { UserProfile } from '../../components/UserProfile';
 import { useAuth } from '../../hooks/useAuth';
 import { ConfirmLogoutModal } from '../../components/ConfirmLogoutModal';
